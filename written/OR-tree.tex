@@ -1,0 +1,39 @@
+\documentclass{article}
+
+
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\parindent}{0pt}
+
+\title{OR-Tree Based Search For TA Assignment Problem}
+\date{October 2013}
+\author{Carson Tunna, Tyler Smith, Adam Thompson}
+
+
+\begin{document}
+
+In the input we're given the following a set of time
+slots\footnotemark. These time slots consits of a set of days MWF,
+MW, TR and a time in 24 hour format. Additioally were given a set of
+TA's that have their own schedule that must be adhered to. We're
+looking for the existence of as assignment(and if it exists, the
+optimal solution) such that all time slots are filled with available
+TA's. Enter OR-Tree based search.\\
+
+The natural language explanation of the algorithm is as follows:\\
+
+
+
+
+
+\footnotetext{Time slots will be denoted $TS = (D, T)$ where $D \in \{MWF, MW, TR\}$
+and $T = \{ x:y | 00 \leq x \leq 23 \land 00 \leq y \leq 59  \}$. I.e.
+MWF0900 and TR2100.}
+
+\end{document}
