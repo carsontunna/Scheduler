@@ -15,6 +15,8 @@
 
 \maketitle\pagebreak
 
+\tableofcontents\pagebreak
+
 \section{Preamble}
 
 For this problem we decided on OR-Tree based search and Set based
@@ -93,36 +95,69 @@ The alforithm works as follows
   is a solution
 
 \item While there is still time available for processing - Go back to
-  the root of the tree and this time choose 2nd child of the $root =
-  \{\}$
+  the root of the tree and this time choose 2nd child of the $root = \emptyset$
 
 \end{enumerate}
 
 \subsection{Mathematical Description of the Model}
 
-Define the problem instance:\\
+Let $L$ be the set of labs\\
 
-Let $I$ be the assignment of TA's to Labs. Let $L$ be the set of
-labs/tutorials. Let $T$ be the set of all TA's.\\
+Let $T$ be the set of all TA's\\
 
-$pr = (I, L, T)$\\
+Let $I:L \times  T^n$ where $I$ is a tuple representing an assignment
+of labs to at least one TA 
 
-When is a branch solvable/unsolvable:\\
+\subsubsection{Defining the problem instance}
 
-$Erw_{v,wt}((pr, ?),(pr, no))$ is never the case since this is an
-optimization problem. As many contraints can be violated as necessary
-to find a valid configuration.\\
+We defined our problem instance as follows
 
-$Erw_{v,wt}((pr, ?),(pr, no)) \iff L = \empty \land T \empty 
+\[
+pr = (M, T, J)
+\]
 
+Where \\
 
+\[
+\begin{array}{c c c}
+  M & : & \text{The list of labs not yet assigned a TA}\\
+  T & : & \text{The set of all TA's}\\
+  I & : & \text{$L \times  T^N$ an assignment of Labs to TAs}
+\end{array}
+\]
 
+\subsubsection{Evaluating Solutions}
 
+\[
+f(pr) = \sum_{t \in T} Cv(t)
+\]
 
+Where $Cv: T \rightarrow \mathbb{N}$ is a function that takes in a TA
+and returns the sum of soft constraints that TA's current
+assignment(s)are violating. 
 
+\subsubsection{When is a branch solvable or unsolvable}\\
 
-Let $A = (S, T)$ be our model where $T: S \times S$.s
+A $pr$ is unsolvable when
 
+\begin{center}
+  $Erw_{v,wt}((pr, ?),(pr, no)) \iff \forall t \in T , \exists
+  l \in L$ such that $(l, t) \in M \land violates-hard-constraint((t,l))$
+\end{center}
+
+I.e. for every assignment of a TA to a specific lab there exists no
+case where it doesn't violate a hard constraint. A $pr$ is solved when\\
+
+\begin{center}
+  $Erw_{v,wt}((pr, ?),(pr, yes)) \iff \lnot Erw_{v,wt}((pr, ?),(pr,
+  no)) \land \forall x \in M, length(x) > 1$.
+\end{center}
+
+I.e. the problem is not unsolvable and lab has at least one assigned
+TA. A lab has at least one assigned TA when the length of the tuple is
+greater than one.
+
+\subsubsection{Branching Definition}
 
 
 \subsection{Demonstration of a small search instance}
