@@ -136,7 +136,7 @@ f(pr) = \sum_{t \in T} Cv(t)
 
 Where $Cv: T \rightarrow \mathbb{N}$ is a function that takes in a TA
 and returns the sum of soft constraints that TA's current
-assignment(s)are violating. 
+assignment(s) are violating. 
 
 \subsubsection{When is a branch solvable or unsolvable}\\
 
@@ -147,19 +147,19 @@ A $pr$ is unsolvable when
   l \in L$ for this leaf such that $(l, t) \in I \land violates-hard-constraint((t,l))$
 \end{center}
 
-I.e. for every assignment of a TA to a specific lab there exists no
-case where it doesn't violate a hard constraint.\\
+I.e. for every assignment of a TA to a specific lab, a hard constraint
+is violated.\\
 
  A $pr$ is solved when\\
 
 \begin{center}
   $Erw_{v,wt}((pr, ?),(pr, yes)) \iff \lnot Erw_{v,wt}((pr, ?),(pr,
-  no)) \land \forall x \in M, length(x) > 1$.
+  no)) \land |L'| = \emptyset$
+
 \end{center}
 
-I.e. the problem is not unsolvable and lab has at least one assigned
-TA. A lab has at least one assigned TA when the length of the tuple is
-greater than one.
+I.e. the problem is not unsolvable and all the labs have been assigned
+a TA.
 
 \subsubsection{Branching Definition}
 
