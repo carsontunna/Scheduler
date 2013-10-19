@@ -7,7 +7,7 @@
 
 \setlength{\parindent}{0pt}
 
-\title{TA Assignment Problem} \author{University of Calgary - CPSC 433
+\title{TA Assignment Problem} \author{University of Cagary - CPSC 433
   - Fall 2013\\ \\Carson Tunna, Tyler Smith, Adam Thompson}
 \date{October 2013}
 
@@ -50,18 +50,18 @@ TA's. Then the problem is defined as follows:\\
 
 \end{enumerate}
 
-\subsection{Explanation of Model}
+\subsection{Explaination of Model}
 
 In the input we're given the following a set of time
 slots\footnote{Time slots will be denoted $TS = (D, T)$ where $D \in
-  \{MWF, MW, TR\}$}. These time slots consist of a set of days MWF,
-MW, TR and a time in 24 hour format. Additionally were given a set of
+  \{MWF, MW, TR\}$}. These time slots consits of a set of days MWF,
+MW, TR and a time in 24 hour format. Additioally were given a set of
 TA's that have their own schedule that must be adhered to. We're
 looking for the existence of as assignment(and if it exists, the
 optimal solution) such that all time slots are filled with available
 TA's. Enter OR-Tree based search.\\
 
-The algorithm works as follows
+The alforithm works as follows
 
 \begin{enumerate}
 
@@ -71,7 +71,7 @@ The algorithm works as follows
   follow.\footnote{This helps us not get forced into a corner further
     down the tree}
 
-\item For each time slot that the chosen TA is available to teach -
+\item For each time slot that the choosen TA is available to teach -
   add a branch to the root node. At the end of each branch are the
   nodes with a tuple that explains:
   
@@ -169,7 +169,7 @@ We use the relation $Altern$ in our definition of the function $Erw$.
 \begin{center}
 $Erw((pr, ?), (pr, ?, (pr_1, ?), (pr_2, ?), ... , (pr_n, ?)))$ if $pr_i$
   is generated out of assigning a valid TA to $pr_i$ such that this
-  assignment doesn't violate any hard constants
+  assignment doesn't violate any hard constaints
 \end{center}
 
 \subsection{Demonstration of a small search instance}
@@ -260,7 +260,7 @@ Define a function $Ext: A \rightarrow B$ where $A,B \subseteq F$. This
 function will mutate a fact $A$ by swapping a TA assignment and time
 slot thus creating a new fact $B$.\\
 
-Definite exactly what $Ext$ does here\\
+Defininte exaclty what $Ext$ does here\\
 
 Let $T = \{(s,s') | \exist A \rightarrow B \in Ext , A \subseteq s ,
 s' = (s - A) \cup B\}$\\
@@ -271,7 +271,7 @@ instance, and all problems we will be solving in class, are static.\\
 
 Let $K: S \times Env \rightarrow S and $K(s,e) = (s-A) \cup B where $A
 \rightarrow B \in Ext$ and $A \subseteq s$ and $\forall A' \rightarrow
-B' \in Ext.$ ... This definition is stupid. It's saything that
+B' \in Ext.$ ... This deifinition is stupid. It's saything that
 control function chooses the optimal swap for that fact.\\
 
 $f_{werth}: 2^F \times 2^F \times Env \rightarrow \mathbb{N}$ and
