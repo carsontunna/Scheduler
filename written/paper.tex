@@ -103,54 +103,52 @@ The algorithm works as follows
 
 Let $L$ be the set of labs\\
 
+Let $L'$ be the set of labs without a TA assignment yet\\
+
 Let $T$ be the set of all TA's\\
 
-Let $P: T \times L$ be an ordered pair representing an assignment of a
-TA to a lab.\\
-
-Let $I$ be a set of ordered pairs from the set $P$.
+Let $I : T \times L$ be a set of ordered pairs rerpresenting an
+assignment of a TA to a lab.
 
 \subsubsection{Defining the problem instance}
 
 We defined our problem instance as follows
 
 \[
-pr = (L', T, I)
+pr = \langle (l_1, t_1), (l_2, t_2), ..., (l_n, t_n)  \rangle
 \]
 
-Where \\
+Where $(l_i, t_i) \in I$ and $pr : Prob = sequence$ $I$\\
+
+States can be described by
 
 \[
-\begin{array}{c c c}
-  L' & : & \text{The list of labs not yet assigned a TA}\\
-  T & : & \text{The set of all TA's}\\
-  I & : & \text{$L \times  T^N$ an assignment of Labs to TAs}
-\end{array}
+S = OTree(Prob, \{yes, no, ?\}, b_1 ... b_n)
 \]
 
 \subsubsection{Evaluating Solutions}
 
+We define the function $f_{leaf} : S \times Env \rightarrow \mathbb{N}$
+
 \[
-f(pr) = \sum_{t \in T} Cv(t)
+f(s) = \sum_{t \in T} Cv(\langle (l_1, t_1) ... (l_n, t_n) \rangle)
 \]
 
-Where $Cv: T \rightarrow \mathbb{N}$ is a function that takes in a TA
-and returns the sum of soft constraints that TA's current
-assignment(s) are violating. 
+Where $Cv: Prob \rightarrow \mathbb{N}$ is a function that takes in a
+sequence of assignmetns and returns the sum of contraints being violated.
 
 \subsubsection{When is a branch solvable or unsolvable}\\
 
 A $pr$ is unsolvable when
 
 \begin{center}
-  $Erw_{v,wt}((pr, ?),(pr, no)) \iff \forall t \in T , \exists
-  l \in L$ for this leaf such that $(l, t) \in I \land violates-hard-constraint((t,l))$
+  $Erw_{v,wt}((pr, ?),(pr, no)) \iff $(l, t) \in I \land violates-hard-constraint((l,t))$
 \end{center}
 
 I.e. for every assignment of a TA to a specific lab, a hard constraint
 is violated.\\
 
- A $pr$ is solved when\\
+A $pr$ is solved when\\
 
 \begin{center}
   $Erw_{v,wt}((pr, ?),(pr, yes)) \iff \lnot Erw_{v,wt}((pr, ?),(pr,
@@ -163,11 +161,21 @@ a TA.
 
 \subsubsection{Branching Definition}
 
-We use the relation $Altern$ in our definition of the function $Erw$.
-
+Define $Altern$ in the following way 
 
 \begin{center}
-$Erw((pr, ?), (pr, ?, (pr_1, ?), (pr_2, ?), ... , (pr_n, ?)))$ if $pr_i$
+  $Altern(s, s')$ such that $(|s| + 1 = |s'|) \land getLab(last(s')) \in
+  L' \land getTA(last(s')) \in T$ 
+\end{center}
+
+Where $getLab() : I \times L \rightarrow L$ returns the lab from a
+tuple in $I$. Similarlly for $getTA()$\\
+
+I.e. the sequence $s'$ is longer than $s$ and we have assigned a TA to a lab
+which hasn't had any assignment prior.
+
+\begin{center}
+  $Erw((pr, ?), (pr, ?, (pr_1, ?), (pr_2, ?), ... , (pr_n, ?)))$ if $pr_i$
   is generated out of assigning a valid TA to $pr_i$ such that this
   assignment doesn't violate any hard constants
 \end{center}
