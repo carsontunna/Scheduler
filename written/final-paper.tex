@@ -32,7 +32,7 @@ the problem description. We were uninspired when we considered the
 option of using an AND-Tree based search model simply because it's
 difficult to apply a $div$ function to the structure of this problem.
 Finally the main reason for selecting these search paradigms was
-professor kremer confirming our instincts and telling us we made the
+professor Kremer confirming our instincts and telling us we made the
 right choice.
 
 \section{OR-Tree Based Search}
@@ -52,47 +52,32 @@ TA's. Then the problem is defined as follows:\\
 
 \subsection{Explanation of Model}
 
-In the input we're given the following a set of time
-slots\footnote{Time slots will be denoted $TS = (D, T)$ where $D \in
-  \{MWF, MW, TR\}$}. These time slots consist of a set of days MWF,
-MW, TR and a time in 24 hour format. Additionally were given a set of
-TA's that have their own schedule that must be adhered to. We're
-looking for the existence of as assignment(and if it exists, the
-optimal solution) such that all time slots are filled with available
-TA's. Enter OR-Tree based search.\\
+We're looking for an assignment of TA's to labs such that no hard
+constraints are violated and as few soft constraints are violated.
 
 The algorithm works as follows
 
 \begin{enumerate}
 
-\item Start with the empty set
+\item Set the root node to the empty set
 
-\item Pick a TA with the greatest number of constraints to
-  follow.\footnote{This helps us not get forced into a corner further
-    down the tree}
+\item Pick a lab
 
-\item For each time slot that the chosen TA is available to teach -
-  add a branch to the root node. At the end of each branch are the
-  nodes with a tuple that explains:
+\item From the root, draw a branch for every TA that can teah this TA
+  without violating any hard constraint.
   
-  \begin{enumerate}
-
-  \item the goodness value of this pair
-    
-  \item the time slot
-
-  \item the TA
-
-  \end{enumerate}
 
 \item Sort the branches from the root node by goodness value in
-  ascending order\footnote{The largest goodness value possible is 0}
+  ascending order\footnote{Goodness value is calculated by the number
+    of soft constraints are currently being violated. The largest
+    goodness value possible is 0} 
 
 
-\item Set the left hand node to be your root node and recurse
+\item Set the left hand node to be your root node. Remove the last lab
+  from your set of working labs. Recurse.
 
-\item When there are no more TA's available the left hand arm of the
-  is a solution
+\item When there are no more TA's available the left hand arm of the tree
+  is the solution
 
 \item While there is still time available for processing - Go back to
   the root of the tree and this time choose 2nd child of the $root = \emptyset$
@@ -180,53 +165,16 @@ which hasn't had any assignment prior.
   assignment doesn't violate any hard constants
 \end{center}
 
+
+Children are chosen using $f_{trans}$ as follows
+
+\begin{center}
+  $Erw((pr, ?, b_1, ... b_n)(pr', ?, b'_1, ... b'_n))$ such that $1
+  \leq i \leq n, pr' = min(f_{leaf}(append(pr, b_i)))$
+  
+\end{center}
+
 \subsection{Demonstration of a small search instance}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
