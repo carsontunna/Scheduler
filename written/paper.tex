@@ -107,7 +107,7 @@ Let $L'$ be the set of labs without a TA assignment yet\\
 
 Let $T$ be the set of all TA's\\
 
-Let $I : T \times L$ be a set of ordered pairs rerpresenting an
+Let $I : T \times L$ be a set of ordered pairs representing an
 assignment of a TA to a lab.
 
 \subsubsection{Defining the problem instance}
@@ -135,7 +135,7 @@ f(s) = \sum_{t \in T} Cv(\langle (l_1, t_1) ... (l_n, t_n) \rangle)
 \]
 
 Where $Cv: Prob \rightarrow \mathbb{N}$ is a function that takes in a
-sequence of assignmetns and returns the sum of contraints being violated.
+sequence of assignments and returns the sum of constraints being violated.
 
 \subsubsection{When is a branch solvable or unsolvable}\\
 
@@ -151,7 +151,7 @@ is violated.\\
 A $pr$ is solved when\\
 
 \begin{center}
-  $Erw_{v,wt}((pr, ?),(pr, yes)) \iff \lnot Erw_{v,wt}((pr, ?),(pr,
+  $Era_{v,wt}((pr, ?),(pr, yes)) \iff \lnot Erw_{v,wt}((pr, ?),(pr,
   no)) \land |L'| = \emptyset$
 
 \end{center}
