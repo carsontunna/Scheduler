@@ -45,7 +45,7 @@ public class PredicateReader extends Entity {
 	private int lineNumber = 0;
 	
 	/**
-	 * Constructor thad does nothing except for recording this PredicateReader's
+	 * Constructor that does nothing except for recording this PredicateReader's
 	 * name.
 	 * @param name The name of this PredicateReading
 	 */
