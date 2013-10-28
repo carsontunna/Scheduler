@@ -1,6 +1,4 @@
-import taAllocation.PredicateReader;
-import taAllocation.TAallocationPredicates;
-
+package taAllocation;
 
 public class TAallocation extends PredicateReader implements TAallocationPredicates{
 
