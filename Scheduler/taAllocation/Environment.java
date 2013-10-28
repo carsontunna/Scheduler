@@ -2,7 +2,7 @@ package taAllocation;
 
 public class Environment {
 
-	public static Environment get() {
+	public static PredicateReader get() {
 		// TODO Auto-generated method stub
 		return null;
 	}
