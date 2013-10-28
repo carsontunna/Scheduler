@@ -2,6 +2,20 @@ package taAllocation;
 
 public class TAallocation extends PredicateReader implements TAallocationPredicates{
 
+	private static long start_time, end_time;
+	
+	public static void main(String[] args)
+	{
+		if (args.length != 2)
+		{
+			System.out.println("Usage: TAallocation <input file> <milliseconds>");
+			return;
+		}
+		
+		start_time = System.currentTimeMillis();
+		
+	}
+	
 	public TAallocation(PredicateReader p) {
 		super(p);
 		// TODO Auto-generated constructor stub
