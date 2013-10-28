@@ -1,84 +1,86 @@
 package taAllocation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class TAallocation extends PredicateReader implements TAallocationPredicates{
 
-	private static long start_time, end_time;
+	long max_labs = Long.MAX_VALUE;
+	long min_labs = 0;
 	
-	public static void main(String[] args)
-	{
-		if (args.length != 2)
-		{
-			System.out.println("Usage: TAallocation <input file> <milliseconds>");
-			return;
-		}
-		
-		start_time = System.currentTimeMillis();
-		
-	}
+	HashMap<String,TA> tas = new HashMap<String,TA>();
+	HashMap<String,Instructor> instructors = new HashMap<String,Instructor>();
+	HashMap<String,Course> courses = new HashMap<String,Course>();
 	
 	public TAallocation(PredicateReader p) {
 		super(p);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void a_maxlabs(Long p) {
-		// TODO Auto-generated method stub
-		
+		this.max_labs = p;		
 	}
 
 	@Override
 	public void a_minlabs(Long p) {
-		// TODO Auto-generated method stub
-		
+		this.min_labs = p;
 	}
 
 	@Override
 	public void a_TA(String p) {
-		// TODO Auto-generated method stub
-		
+		if (tas.containsKey(p))
+		{
+			//TODO: warning
+		} else {
+			tas.put(p, new TA(p));
+		}
 	}
 
 	@Override
 	public boolean e_TA(String p) {
-		// TODO Auto-generated method stub
-		return false;
+		return tas.containsKey(p);
 	}
 
 	@Override
 	public void a_instructor(String p) {
-		// TODO Auto-generated method stub
-		
+		if (instructors.containsKey(p))
+		{
+			//TODO: warning			
+		} else {
+			instructors.put(p, new Instructor(p));
+		}
 	}
 
 	@Override
 	public boolean e_instructor(String p) {
-		// TODO Auto-generated method stub
-		return false;
+		return instructors.containsKey(p);
 	}
 
 	@Override
 	public void a_course(String p) {
-		// TODO Auto-generated method stub
-		
+		if (courses.containsKey(p))
+		{
+			//TODO: warning
+		} else {
+			courses.put(p, new Course(p));
+		}
 	}
 
 	@Override
 	public boolean e_course(String p) {
-		// TODO Auto-generated method stub
-		return false;
+		return courses.containsKey(p);
 	}
 
 	@Override
 	public void a_senior_course(String p) {
-		// TODO Auto-generated method stub
-		
+		if (!e_course(p)) a_course(p);
+		courses.get(p).setSeniorCourse(true);
 	}
 
 	@Override
 	public boolean e_senior_course(String p) {
-		// TODO Auto-generated method stub
-		return false;
+		//here
 	}
 
 	@Override
