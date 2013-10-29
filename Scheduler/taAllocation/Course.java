@@ -1,10 +1,15 @@
 package taAllocation;
 
+import java.util.Collection;
+import java.util.HashMap;
+
 public class Course extends Entity {
 
-	private boolean seniorCourse;
-	private boolean gradCourse;
-	
+	private boolean seniorCourse = false;
+	private boolean gradCourse = false;
+	private HashMap<String,Lecture> lectures = new HashMap<String,Lecture>();
+	private HashMap<String,Lab> labs = new HashMap<String,Lab>();
+			
 	public Course(Entity e) {
 		super(e);
 	}
@@ -28,6 +33,54 @@ public class Course extends Entity {
 	public void setGradCourse(boolean gradCourse) {
 		this.gradCourse = gradCourse;
 	}
+	
+	//////////////////////////lectures
 
+	public boolean hasLecture(String lec)
+	{
+		return lectures.containsKey(lec);
+	}
+	
+	public void addLecture(String lec)
+	{
+		Lecture lecture = new Lecture(lec);
+		lecture.setCourse(this);
+		
+		lectures.put(lec, lecture);
+	}
+	
+	public Collection<Lecture> getLectures()
+	{
+		return lectures.values();
+	}
 
+	public Lecture getLecture(String lec) {
+		return lectures.get(lec);
+	}
+	
+	/////////////////////////labs
+
+	public boolean hasLab(String lab)
+	{
+		return labs.containsKey(lab);
+	}
+	
+	public void addLab(String lab, String lec)
+	{
+		Lab laboratory = new Lab(lab);
+		laboratory.setCourse(this);
+		laboratory.setLecture(this.getLecture(lec));
+		labs.put(lab, laboratory);
+	}
+	
+	public Collection<Lab> getLabs()
+	{
+		return labs.values();
+	}
+	
+	public Lab getLab(String lab)
+	{
+		return labs.get(lab);
+	}
+	
 }
