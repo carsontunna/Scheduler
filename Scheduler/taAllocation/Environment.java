@@ -2,8 +2,10 @@ package taAllocation;
 
 public class Environment {
 
+	protected static PredicateReader p;
+
 	public static PredicateReader get() {
-		return null;
+		return new PredicateReader(p);
 
 	}
 
@@ -15,7 +17,7 @@ public class Environment {
 	}
 
 	public static void reset() {
-		// TODO Auto-generated method stub
+		p = null;
 
 	}
 
