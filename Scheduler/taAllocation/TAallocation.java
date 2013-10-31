@@ -17,6 +17,25 @@ public class TAallocation extends PredicateReader implements
 	static final int DEFAULT_MAX_TIME = 30000;
 	static PrintStream traceFile;
 
+	public void e_show(String t1) {
+		System.out.println("\n// Instructors");
+		for (String key : instructors.keySet())
+			System.out.println(key);
+		
+		System.out.println("\n// TA's");
+		for (String key : tas.keySet())
+			System.out.println(key);
+		
+		System.out.println("\n// Courses");
+		for (String key : courses.keySet())
+			System.out.println(key);
+		
+		System.out.println("\n// Timeslots");
+		for (String key : timeslots.keySet())
+			System.out.println(key);
+		
+	}
+
 	public static void main(String[] args) {
 		try {
 			traceFile = new PrintStream(new FileOutputStream("trace.out"));

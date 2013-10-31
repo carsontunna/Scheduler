@@ -107,5 +107,8 @@ public interface TAallocationPredicates {
 	public static String h_conflicts = "query or assert timeslot <id1> conflicts with timeslot <id2>";
 	public void a_conflicts(String t1, String t2);
 	public boolean e_conflicts(String t1, String t2);
+	
+	public static String e_show = "Shows stuff";
+	public void e_show(String t1);
 
 }
