@@ -1,3 +1,10 @@
+/*
+ * 
+ * This file has been deprecated and is no longer being used in the project. 
+ * All code has been moved into TAallocation.
+ * 
+ */
+
 package taAllocation;
 
 import java.util.HashMap;
@@ -271,7 +278,8 @@ public class Instance implements TAallocationPredicates {
 
 	@Override
 	public void a_taking(String ta, String c, String l) {
-	//	taByName(ta).addTaking(courseByName(c), courseByName(c).getLecture(l));
+		// taByName(ta).addTaking(courseByName(c),
+		// courseByName(c).getLecture(l));
 	}
 
 	@Override

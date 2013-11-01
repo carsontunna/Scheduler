@@ -31,7 +31,7 @@ public class TAallocation extends PredicateReader implements
 		PredicateReader env = Environment.get();
 		printSynopsis();
 		String outfilename = "saved.out";
-		commandMode(env);
+		commandMode(new TAallocation("Fred"));
 
 		if (traceFile != null) {
 			traceFile.println(new java.util.Date());
@@ -41,7 +41,7 @@ public class TAallocation extends PredicateReader implements
 
 	/**
 	 * Implement "command mode": repeatedly read lines of predicates from
-	 * {@link System#in} and eitPredicateReaderher assert them (if the line
+	 * {@link System#in} and let PredicateReaderher assert them (if the line
 	 * starts with a "!") or evaluate them (and return "true" or "false" to
 	 * {@link System#out}.
 	 * 
