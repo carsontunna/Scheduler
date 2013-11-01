@@ -3,6 +3,7 @@ package taAllocation;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class TAallocation extends PredicateReader implements
 		TAallocationPredicates {
@@ -19,21 +20,21 @@ public class TAallocation extends PredicateReader implements
 
 	public void e_show(String t1) {
 		System.out.println("\n// Instructors");
-		for (String key : instructors.keySet())
-			System.out.println(key);
-		
+		for (Entry<String, Instructor> entry : instructors.entrySet())
+			System.out.println((entry.getValue().toString()));
+
 		System.out.println("\n// TA's");
-		for (String key : tas.keySet())
-			System.out.println(key);
-		
+		for (Entry<String, TA> entry : tas.entrySet())
+			System.out.println(entry.getValue().getName());
+
 		System.out.println("\n// Courses");
-		for (String key : courses.keySet())
-			System.out.println(key);
-		
+		for (Entry<String, Course> entry : courses.entrySet())
+			System.out.println(entry.getValue().getName());
+
 		System.out.println("\n// Timeslots");
-		for (String key : timeslots.keySet())
-			System.out.println(key);
-		
+		for (Entry<String, Timeslot> entry : timeslots.entrySet())
+			System.out.println(entry.getValue().getName());
+
 	}
 
 	public static void main(String[] args) {
