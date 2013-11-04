@@ -20,6 +20,11 @@ public class Timeslot extends Entity {
 		conflicts.put(t.getName(), t);
 	}
 	
+	public Collection<Timeslot> getConflicts()
+	{
+		return conflicts.values();
+	}
+	
 	public Timeslot(Entity e) {
 		super(e);
 	}

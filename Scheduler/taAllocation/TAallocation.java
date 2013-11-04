@@ -18,7 +18,49 @@ public class TAallocation extends PredicateReader implements
 	static final int DEFAULT_MAX_TIME = 30000;
 	static PrintStream traceFile;
 
-	public void e_show(String t1) {
+	public void a_show(String t1) {
+		if (min_labs != 0) println("minlabs(" + min_labs + ")");
+		if (max_labs != Long.MAX_VALUE) println("maxlabs(" + max_labs + ")");
+		println("");
+		
+		println("// Time slots");
+		for (Timeslot timeslot : timeslots.values())//is this optimized in new java?
+			println("timeslot(" + timeslot.getName() + ")");
+		for (Timeslot timeslot : timeslots.values())
+			for(Timeslot timeslot2 : timeslot.getConflicts())
+				println("conflicts(" + timeslot.getName() + "," + timeslot2.getName() + ")");
+		println("");
+		
+		println("// Courses");
+		for (Course course: courses.values())
+		{
+			if (course.isGradCourse())
+			{
+				println("grad-course(" + course.getName() + ")");
+			} else if (course.isSeniorCourse())	{
+				println("senior-course(" + course.getName() + ")");
+			} else {
+				println("course(" + course.getName() + ")");
+			}
+
+			for(Lecture lecture: course.getLectures())
+			{
+				Timeslot timeslot = lecture.getTimeslot();
+				println("lecture(" + course.getName() + "," + lecture.getName());
+				if (timeslot != null)
+					println("at(" + course.getName() + "," + lecture.getName() + "," + timeslot.getName() + ")");
+			}
+			
+			for(Lab lab: course.getLabs())
+			{
+				Timeslot timeslot = lab.getTimeslot();
+				println("lab(" + course.getName() + "," + lab.getName() + ")");
+				if (timeslot != null)
+					println("at(" + course.getName() + "," + lab.getName() + "," + timeslot.getName() + ")");
+			}
+		}
+		println("");
+		
 		System.out.println("\n// Instructors");
 		for (Entry<String, Instructor> entry : instructors.entrySet())
 			System.out.println((entry.getValue().toString()));
@@ -26,15 +68,6 @@ public class TAallocation extends PredicateReader implements
 		System.out.println("\n// TA's");
 		for (Entry<String, TA> entry : tas.entrySet())
 			System.out.println(entry.getValue().getName());
-
-		System.out.println("\n// Courses");
-		for (Entry<String, Course> entry : courses.entrySet())
-			System.out.println(entry.getValue().getName());
-
-		System.out.println("\n// Timeslots");
-		for (Entry<String, Timeslot> entry : timeslots.entrySet())
-			System.out.println(entry.getValue().getName());
-
 	}
 
 	public static void main(String[] args) {
@@ -433,5 +466,6 @@ public class TAallocation extends PredicateReader implements
 		}
 		return course;
 	}
+
 
 }

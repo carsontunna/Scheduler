@@ -6,6 +6,7 @@ import java.util.List;
 public class Instructor extends Entity {
 
 	private List<Pair<TA,Course>> prefers = new ArrayList<Pair<TA,Course>>();
+	//add courses
 	
 	public Instructor(Entity e) {
 		super(e);
