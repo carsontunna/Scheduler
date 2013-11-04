@@ -34,7 +34,7 @@ public class TAallocation extends PredicateReader implements
 
 		TAallocation env = new TAallocation("Jack Black");
 		
-		env.fromFile("input.txt");
+		env.fromFile("input.txt"); // READ FROM FILE
 		
 		printSynopsis();
 		String outfilename = "saved.out";
