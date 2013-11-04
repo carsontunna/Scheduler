@@ -19,81 +19,7 @@ public class TAallocation extends PredicateReader implements
 	static final int DEFAULT_MAX_TIME = 30000;
 	static PrintStream traceFile;
 
-	public void a_show(String t1) {
-		if (min_labs != 0) println("minlabs(" + min_labs + ")");
-		if (max_labs != Long.MAX_VALUE) println("maxlabs(" + max_labs + ")");
-		println("");
-		
-		println("// Time slots");
-		for (Timeslot timeslot : timeslots.values())//is this optimized in new java?
-			println("timeslot(" + timeslot.getName() + ")");
-		for (Timeslot timeslot : timeslots.values())
-			for(Timeslot timeslot2 : timeslot.getConflicts())
-				println("conflicts(" + timeslot.getName() + "," + timeslot2.getName() + ")");
-		println("");
-		
-		println("// Courses");
-		for (Course course: courses.values())
-		{
-			if (course.isGradCourse())
-			{
-				println("grad-course(" + course.getName() + ")");
-			} else if (course.isSeniorCourse())	{
-				println("senior-course(" + course.getName() + ")");
-			} else {
-				println("course(" + course.getName() + ")");
-			}
-
-			for(Lecture lecture: course.getLectures())
-			{
-				Timeslot timeslot = lecture.getTimeslot();
-				println("lecture(" + course.getName() + "," + lecture.getName());
-				if (timeslot != null)
-					println("at(" + course.getName() + "," + lecture.getName() + "," + timeslot.getName() + ")");
-			}
-			
-			for(Lab lab: course.getLabs())
-			{
-				Timeslot timeslot = lab.getTimeslot();
-				println("lab(" + course.getName() + "," + lab.getName() + ")");
-				if (timeslot != null)
-					println("at(" + course.getName() + "," + lab.getName() + "," + timeslot.getName() + ")");
-			}
-		}
-		println("");
-		
-		println("// Instructors");
-		for(Instructor instructor: instructors.values())
-		{
-			println("instructor(" + instructor.getName() + ")");
-			for(Lecture lecture: instructor.getLectures())
-			{
-				println("instructs(" + instructor.getName() + "," + lecture.getCourse().getName() + "," + lecture.getName());
-			}
-		}
-		println("");
-		
-		println("// TAs");
-		for(TA ta: tas.values())
-		{
-			println("TA(" + ta.getName() + ")");
-			for(Lab lab: ta.getLabs())
-			{
-			 	// TA-name, course-name, lab-name
-				println("instructs(" + ta.getName() + "," + lab.getCourse().getName() + "," + lab.getName());
-			}
-			if (ta.getPrefer1() != null)
-				println("prefers1(" + ta.getName() + "," + ta.getPrefer1().getName() + ")");
-			if (ta.getPrefer2() != null)
-				println("prefers2(" + ta.getName() + "," + ta.getPrefer2().getName() + ")");
-			if (ta.getPrefer3() != null)
-				println("prefers3(" + ta.getName() + "," + ta.getPrefer3().getName() + ")");
-			for(Course course: ta.getKnows())
-			{
-				println("knows(" + ta.getName() + "," + course.getName() + ")");
-			}
-		}
-	}
+	
 
 	public static void main(String[] args) {
 		
@@ -188,7 +114,6 @@ public class TAallocation extends PredicateReader implements
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public void a_show(String t1) {
 		if (min_labs != 0) println("minlabs(" + min_labs + ")");
 		if (max_labs != Long.MAX_VALUE) println("maxlabs(" + max_labs + ")");
@@ -232,13 +157,37 @@ public class TAallocation extends PredicateReader implements
 		}
 		println("");
 		
-		System.out.println("\n// Instructors");
-		for (Entry<String, Instructor> entry : instructors.entrySet())
-			System.out.println((entry.getValue().toString()));
-
-		System.out.println("\n// TA's");
-		for (Entry<String, TA> entry : tas.entrySet())
-			System.out.println(entry.getValue().getName());
+		println("// Instructors");
+		for(Instructor instructor: instructors.values())
+		{
+			println("instructor(" + instructor.getName() + ")");
+			for(Lecture lecture: instructor.getLectures())
+			{
+				println("instructs(" + instructor.getName() + "," + lecture.getCourse().getName() + "," + lecture.getName());
+			}
+		}
+		println("");
+		
+		println("// TAs");
+		for(TA ta: tas.values())
+		{
+			println("TA(" + ta.getName() + ")");
+			for(Lab lab: ta.getLabs())
+			{
+			 	// TA-name, course-name, lab-name
+				println("instructs(" + ta.getName() + "," + lab.getCourse().getName() + "," + lab.getName());
+			}
+			if (ta.getPrefer1() != null)
+				println("prefers1(" + ta.getName() + "," + ta.getPrefer1().getName() + ")");
+			if (ta.getPrefer2() != null)
+				println("prefers2(" + ta.getName() + "," + ta.getPrefer2().getName() + ")");
+			if (ta.getPrefer3() != null)
+				println("prefers3(" + ta.getName() + "," + ta.getPrefer3().getName() + ")");
+			for(Course course: ta.getKnows())
+			{
+				println("knows(" + ta.getName() + "," + course.getName() + ")");
+			}
+		}
 	}
 	
 	@Override
