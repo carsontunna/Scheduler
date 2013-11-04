@@ -1,0 +1,6 @@
+course(CPSC433)
+course(CPSC519)
+course(CPSC441)
+course(MATH335)
+course(ANTH335)
+

@@ -1,5 +1,6 @@
 package taAllocation;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -18,59 +19,9 @@ public class TAallocation extends PredicateReader implements
 	static final int DEFAULT_MAX_TIME = 30000;
 	static PrintStream traceFile;
 
-	public void a_show(String t1) {
-		if (min_labs != 0) println("minlabs(" + min_labs + ")");
-		if (max_labs != Long.MAX_VALUE) println("maxlabs(" + max_labs + ")");
-		println("");
-		
-		println("// Time slots");
-		for (Timeslot timeslot : timeslots.values())//is this optimized in new java?
-			println("timeslot(" + timeslot.getName() + ")");
-		for (Timeslot timeslot : timeslots.values())
-			for(Timeslot timeslot2 : timeslot.getConflicts())
-				println("conflicts(" + timeslot.getName() + "," + timeslot2.getName() + ")");
-		println("");
-		
-		println("// Courses");
-		for (Course course: courses.values())
-		{
-			if (course.isGradCourse())
-			{
-				println("grad-course(" + course.getName() + ")");
-			} else if (course.isSeniorCourse())	{
-				println("senior-course(" + course.getName() + ")");
-			} else {
-				println("course(" + course.getName() + ")");
-			}
-
-			for(Lecture lecture: course.getLectures())
-			{
-				Timeslot timeslot = lecture.getTimeslot();
-				println("lecture(" + course.getName() + "," + lecture.getName());
-				if (timeslot != null)
-					println("at(" + course.getName() + "," + lecture.getName() + "," + timeslot.getName() + ")");
-			}
-			
-			for(Lab lab: course.getLabs())
-			{
-				Timeslot timeslot = lab.getTimeslot();
-				println("lab(" + course.getName() + "," + lab.getName() + ")");
-				if (timeslot != null)
-					println("at(" + course.getName() + "," + lab.getName() + "," + timeslot.getName() + ")");
-			}
-		}
-		println("");
-		
-		System.out.println("\n// Instructors");
-		for (Entry<String, Instructor> entry : instructors.entrySet())
-			System.out.println((entry.getValue().toString()));
-
-		System.out.println("\n// TA's");
-		for (Entry<String, TA> entry : tas.entrySet())
-			System.out.println(entry.getValue().getName());
-	}
-
+	
 	public static void main(String[] args) {
+		
 		try {
 			traceFile = new PrintStream(new FileOutputStream("trace.out"));
 			traceFile.print("Trace taAllocation.Test");
@@ -81,10 +32,14 @@ public class TAallocation extends PredicateReader implements
 			traceFile = null;
 		}
 
-		PredicateReader env = Environment.get();
+		TAallocation env = new TAallocation("Jack Black");
+		
+		env.fromFile("input.txt");
+		
 		printSynopsis();
 		String outfilename = "saved.out";
-		commandMode(new TAallocation("Fred"));
+		commandMode(env);
+		//commandMode(new TAallocation("Fred"));
 
 		if (traceFile != null) {
 			traceFile.println(new java.util.Date());
@@ -158,6 +113,59 @@ public class TAallocation extends PredicateReader implements
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void a_show(String t1) {
+		if (min_labs != 0) println("minlabs(" + min_labs + ")");
+		if (max_labs != Long.MAX_VALUE) println("maxlabs(" + max_labs + ")");
+		println("");
+		
+		println("// Time slots");
+		for (Timeslot timeslot : timeslots.values())//is this optimized in new java?
+			println("timeslot(" + timeslot.getName() + ")");
+		for (Timeslot timeslot : timeslots.values())
+			for(Timeslot timeslot2 : timeslot.getConflicts())
+				println("conflicts(" + timeslot.getName() + "," + timeslot2.getName() + ")");
+		println("");
+		
+		println("// Courses");
+		for (Course course: courses.values())
+		{
+			if (course.isGradCourse())
+			{
+				println("grad-course(" + course.getName() + ")");
+			} else if (course.isSeniorCourse())	{
+				println("senior-course(" + course.getName() + ")");
+			} else {
+				println("course(" + course.getName() + ")");
+			}
+
+			for(Lecture lecture: course.getLectures())
+			{
+				Timeslot timeslot = lecture.getTimeslot();
+				println("lecture(" + course.getName() + "," + lecture.getName());
+				if (timeslot != null)
+					println("at(" + course.getName() + "," + lecture.getName() + "," + timeslot.getName() + ")");
+			}
+			
+			for(Lab lab: course.getLabs())
+			{
+				Timeslot timeslot = lab.getTimeslot();
+				println("lab(" + course.getName() + "," + lab.getName() + ")");
+				if (timeslot != null)
+					println("at(" + course.getName() + "," + lab.getName() + "," + timeslot.getName() + ")");
+			}
+		}
+		println("");
+		
+		System.out.println("\n// Instructors");
+		for (Entry<String, Instructor> entry : instructors.entrySet())
+			System.out.println((entry.getValue().toString()));
+
+		System.out.println("\n// TA's");
+		for (Entry<String, TA> entry : tas.entrySet())
+			System.out.println(entry.getValue().getName());
+	}
+	
 	@Override
 	public void a_maxlabs(Long p) {
 		max_labs = p;
