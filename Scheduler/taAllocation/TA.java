@@ -9,6 +9,7 @@ public class TA extends Entity {
 	private Course prefer2;
 	private Course prefer3;
 	private List<Course> knows = new ArrayList<Course>();
+	private List<Lab> labs = new ArrayList<Lab>();
 	
 	public TA(Entity e) {
 		super(e);
@@ -51,5 +52,19 @@ public class TA extends Entity {
 	public boolean knows(Course course)
 	{
 		return knows.contains(course);
+	}
+
+	public List<Course> getKnows()
+	{
+		return knows;
+	}
+	
+	public List<Lab> getLabs() {
+		return labs;
+	}
+
+	public void addLabs(Lab lab) {
+		if (!labs.contains(lab))
+			labs.add(lab);
 	}
 }
