@@ -23,7 +23,7 @@ public class Course extends Entity {
 	}
 
 	public void setSeniorCourse(boolean seniorCourse) {
-		//TODO: check if grad course
+		//TODO: check if grad course- not necessary because if this getting called then we know it already is a grad course. 
 		this.seniorCourse = seniorCourse;
 	}
 
@@ -32,7 +32,7 @@ public class Course extends Entity {
 	}
 
 	public void setGradCourse(boolean gradCourse) {
-		//TODO: check if senior course
+		//TODO: check if senior course-  same thing as grad course here here. 
 		this.gradCourse = gradCourse;
 	}
 	

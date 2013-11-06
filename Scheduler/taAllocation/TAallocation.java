@@ -3,7 +3,9 @@ package taAllocation;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 public class TAallocation extends PredicateReader implements
@@ -15,7 +17,6 @@ public class TAallocation extends PredicateReader implements
 	protected HashMap<String, Instructor> instructors = new HashMap<String, Instructor>();
 	protected HashMap<String, Course> courses = new HashMap<String, Course>();
 	protected HashMap<String, Timeslot> timeslots = new HashMap<String, Timeslot>();
-
 	static final int DEFAULT_MAX_TIME = 30000;
 	static PrintStream traceFile;
 
@@ -203,7 +204,7 @@ public class TAallocation extends PredicateReader implements
 	@Override
 	public void a_TA(String p) {
 		if (tas.containsKey(p)) {
-			// TODO: warning
+			println ("Warning TA already exists!");
 		} else {
 			tas.put(p, new TA(p));
 		}
@@ -217,7 +218,7 @@ public class TAallocation extends PredicateReader implements
 	@Override
 	public void a_instructor(String p) {
 		if (instructors.containsKey(p)) {
-			// TODO: warning
+			println ("Warning instructor already exists!");
 		} else {
 			instructors.put(p, new Instructor(p));
 		}
@@ -231,7 +232,7 @@ public class TAallocation extends PredicateReader implements
 	@Override
 	public void a_course(String p) {
 		if (courses.containsKey(p)) {
-			// TODO: warning
+			println ("Warning course already exists!");
 		} else {
 			courses.put(p, new Course(p));
 		}
@@ -277,7 +278,7 @@ public class TAallocation extends PredicateReader implements
 	@Override
 	public void a_timeslot(String p) {
 		if (timeslots.containsKey(p)) {
-			// TODO: warning
+			println ("Warning time slot already exists!");		
 		} else {
 			timeslots.put(p, new Timeslot(p));
 		}
@@ -290,31 +291,54 @@ public class TAallocation extends PredicateReader implements
 
 	@Override
 	public void a_lecture(String c, String lec) {
-		// TODO Auto-generated method stub
+		Course a = courses.get(c);
+		if (a == null)
+			println ("Error course does not exist, lecture will not be added!"); // Should I be throwing an exception instead? 
+		else {
+			if (a.hasLecture(lec))
+				println("Warning lecture already exists!");
+			else	
+				a.addLecture(lec);
+		}
+		
 	}
 
 	@Override
 	public boolean e_lecture(String c, String lec) {
-		// TODO Auto-generated method stub
-		return false;
+		Course a = courses.get(c);
+		return a != null && a.hasLecture(lec);
+		
 	}
 
 	@Override
 	public void a_lab(String c, String lec, String lab) {
-
+		Course a = courses.get(c);
+		if (a == null){
+			println ("Error course does not exist, Lab will not be added!");   
+			return;
+		}
+		
+		if (!a.hasLecture(lec))
+			println("Error no lecture for this course exists, lab will not be added!");
+		else{
+			if (!a.hasLab(lab))
+				a.addLab(lab, lec);
+			else
+				println ("Warning lab already exists!");
+		}
 	}
 
 	@Override
 	public boolean e_lab(String c, String lec, String lab) {
-		// TODO Auto-generated method stub
-		return false;
+		Course a = courses.get(c);
+		return a != null && a.hasLab(lab);
 	}
 
 	@Override
 	public void a_instructs(String p, String c, String l) {
 		Course course = courses.get(c);
 		if (c == null) {
-			// TODO: error - course does not exist
+			println ("Error course does not exist. Unable to continue!");
 			return;
 		}
 
@@ -322,7 +346,7 @@ public class TAallocation extends PredicateReader implements
 			Instructor instructor = instructors.get(p);
 			Lecture lecture = course.getLecture(l);
 			if (lecture == null) {
-				// TODO: error - lecture does not exist
+				println ("Error lecture does not exist. Unable to continue!");
 				return;
 			}
 			lecture.setInstructor(instructor);
@@ -330,7 +354,7 @@ public class TAallocation extends PredicateReader implements
 			TA ta = tas.get(p);
 			Lab lab = course.getLab(l);
 			if (lab == null) {
-				// TODO: error - lab does not exist
+				println(" Error lab does not exist. Unable to continue!");
 				return;
 			}
 			lab.setTA(ta);
@@ -340,38 +364,66 @@ public class TAallocation extends PredicateReader implements
 
 	@Override
 	public boolean e_instructs(String p, String c, String l) {
-		// TODO Auto-generated method stub
-		return false;
+		Instructor a = instructors.get(p);
+		Course b = courses.get(c);
+		Lecture d = b.getLecture(l);
+		
+		if (d.getInstructor() == a)
+			return true;
+		else
+			return false;
 	}
 
 	@Override
 	public void a_at(String c, String l, String t) {
 		Timeslot timeslot = timeslots.get(t);
 		if (timeslot == null) {
-			// TODO: error - timeslot does not exist
+			println ("Error time slot does not exist. Unable to continue!");
+			return;
 		}
 		Course course = courses.get(c);
 		if (course == null) {
-			// TODO: error - course does not exist
+			println ("Error course does not exist. Unable to continue!");
+			return;
 		}
 		if (course.hasLecture(l)) {
 			Lecture lecture = course.getLecture(l);
-			lecture.setTimeslot(timeslot);
-			timeslot.addEntity(lecture);
-			return;
+			if (!lecture.hasTimeslot()){
+				lecture.setTimeslot(timeslot);
+				timeslot.addEntity(lecture);
+				return;
+			}
+			else{
+				println("Error lecture already has a time slot!");
+				return;
+			}
 		}
 		if (course.hasLab(l)) {
 			Lab lab = course.getLab(l);
-			lab.setTimeslot(timeslot);
-			timeslot.addEntity(lab);
-			return;
+			if(!lab.hasTimeslot()){
+				lab.setTimeslot(timeslot);
+				timeslot.addEntity(lab);
+				return;
+			}
+			else{
+				println ("Error lab already has a time slot!");
+				return;
+			}
 		}
-		// TODO: error - lecture/lab does not exist
+		else 
+			println("Error Lab does not exist. Unable to continue!");
+		
 	}
 
 	@Override
 	public boolean e_at(String c, String l, String t) {
-		// TODO Auto-generated method stub
+		Course a = courses.get(c);
+		Lecture b = a.getLecture(l);
+		Timeslot d = timeslots.get(t);
+		
+		if (b.getTimeslot() == d)
+			return true;
+		else
 		return false;
 	}
 
@@ -445,12 +497,31 @@ public class TAallocation extends PredicateReader implements
 	public void a_taking(String ta, String c, String l) {
 		// taByName(ta).addTaking(courseByName(c),
 		// courseByName(c).getLecture(l));
+		TA thatGuy = taByName(ta);
+		Course thatCourse = courseByName(c);
+		Lecture thatLecture = thatCourse.getLecture(l);
+		if(thatGuy.isTaking(thatCourse)){
+			println ("Warning TA "+ thatGuy + "is already taking that course!");
+			return;
+		}
+		else{
+			if (thatCourse.getLecture(l) == null)
+				throw new RuntimeException ("Lecture " + l + " does not exist.");
+			else
+				thatGuy.addTaking(thatCourse, thatLecture);
+		}
+			
 	}
 
 	@Override
 	public boolean e_taking(String ta, String c, String l) {
-		// TODO Auto-generated method stub
-		return false;
+		TA thatGuy = taByName(ta);
+		Course thatCourse = courseByName(c);
+		Lecture thatLecture = thatCourse.getLecture(l);
+		if (thatLecture != null && thatGuy.isTaking(thatCourse) && thatGuy.withLecture(thatLecture))
+			return true;
+		else
+			return false;
 	}
 
 	@Override
@@ -491,6 +562,7 @@ public class TAallocation extends PredicateReader implements
 		}
 		return course;
 	}
+
 
 
 }

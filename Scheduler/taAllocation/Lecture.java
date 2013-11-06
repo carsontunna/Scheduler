@@ -41,5 +41,10 @@ public class Lecture extends Entity {
 	public void setInstructor(Instructor instructor) {
 		this.instructor = instructor;
 	}
-
+	public boolean hasTimeslot(){
+		if (timeslot == null)
+			return false;
+		else
+			return true;
+	}
 }

@@ -47,4 +47,10 @@ public class Lab extends Entity {
 		this.ta = ta;
 	}
 
+	public boolean hasTimeslot(){
+		if (timeslot == null)
+			return false;
+		else 
+			return true; 
+	}
 }

@@ -10,7 +10,8 @@ public class TA extends Entity {
 	private Course prefer3;
 	private List<Course> knows = new ArrayList<Course>();
 	private List<Lab> labs = new ArrayList<Lab>();
-	
+	private List <Course> taking = new ArrayList<Course>();
+	private List<Lecture> atLecture = new ArrayList<Lecture>();
 	public TA(Entity e) {
 		super(e);
 	}
@@ -31,6 +32,7 @@ public class TA extends Entity {
 	public Course getPrefer2() {
 		return prefer2;
 	}
+
 
 	public void setPrefer2(Course prefer2) {
 		this.prefer2 = prefer2;
@@ -67,4 +69,17 @@ public class TA extends Entity {
 		if (!labs.contains(lab))
 			labs.add(lab);
 	}
+	public boolean isTaking (Course course){
+		return taking.contains(course);
+	}
+	public boolean withLecture (Lecture L){
+		return atLecture.contains(L);
+	}
+	public void addTaking (Course course,Lecture lecture){
+		if(!taking.contains(course)){	
+			taking.add(course);
+			atLecture.add(lecture);
+		}
+	}
 }
+	
