@@ -65,7 +65,7 @@ public class TA extends Entity {
 		return labs;
 	}
 
-	public void addLabs(Lab lab) {
+	public void addLab(Lab lab) {
 		if (!labs.contains(lab))
 			labs.add(lab);
 	}
