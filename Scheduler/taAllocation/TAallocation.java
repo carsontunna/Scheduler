@@ -45,9 +45,9 @@ public class TAallocation extends PredicateReader implements
 		try {
 			traceFile = new PrintStream(new FileOutputStream(outfile));
 			//traceFile.print("Trace taAllocation.Test");
-			for (String s : args)
-				traceFile.print(" " + s);
-			traceFile.println("\n" + new java.util.Date());
+			//for (String s : args)
+			//	traceFile.print(" " + s);
+			//traceFile.println("\n" + new java.util.Date());
 		} catch (Exception ex) {
 			traceFile = null;
 		}
@@ -155,17 +155,13 @@ public class TAallocation extends PredicateReader implements
 		}
 		println("");
 		
-		println("// TA instructs");
+		println("// TAs");
 		for(TA ta: tas.values())
 		{
-			for(Lab lab: ta.getLabs())
-			{
-			 	// TA-name, course-name, lab-name
-				println("instructs(" + ta.getName() + "," + lab.getCourse().getName() + "," + lab.getName() + ")");
-			}
+			println("TA(" + ta.getName() + ")");
 		}
 		println("");
-
+		
 		println("// Courses");
 		for (Course course: courses.values())
 		{
@@ -207,14 +203,13 @@ public class TAallocation extends PredicateReader implements
 		println("");
 		
 
-		println("// TAs");
+		println("// TA stuff");
 		for(TA ta: tas.values())
 		{
-			println("TA(" + ta.getName() + ")");
 			for(Lab lab: ta.getLabs())
 			{
 			 	// TA-name, course-name, lab-name
-				//println("instructs(" + ta.getName() + "," + lab.getCourse().getName() + "," + lab.getName() + ")");
+				println("instructs(" + ta.getName() + "," + lab.getCourse().getName() + "," + lab.getName() + ")");
 			}
 			if (ta.getPrefer1() != null)
 				println("prefers1(" + ta.getName() + "," + ta.getPrefer1().getName() + ")");
