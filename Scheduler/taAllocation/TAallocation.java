@@ -531,33 +531,34 @@ public class TAallocation extends PredicateReader implements
 
 	@Override
 	public void a_taking(String ta, String c, String l) {
-		// taByName(ta).addTaking(courseByName(c),
-		// courseByName(c).getLecture(l));
-		TA thatGuy = taByName(ta);
-		Course thatCourse = courseByName(c);
-		Lecture thatLecture = thatCourse.getLecture(l);
-		if(thatGuy.isTaking(thatCourse)){
-			println ("Warning TA "+ thatGuy + "is already taking that course!");
-			return;
+		TA t = taByName(ta);
+		Course course = courseByName(c);
+		if (course == null)
+		{
+			error("course does not exist");
 		}
-		else{
-			if (thatCourse.getLecture(l) == null)
-				throw new RuntimeException ("Lecture " + l + " does not exist.");
-			else
-				thatGuy.addTaking(thatCourse, thatLecture);
+		Lecture lecture = course.getLecture(l);
+		if (lecture == null)
+		{
+			error("lecture does not exist");
 		}
-			
+		t.addTaking(lecture);
 	}
 
 	@Override
 	public boolean e_taking(String ta, String c, String l) {
-		TA thatGuy = taByName(ta);
-		Course thatCourse = courseByName(c);
-		Lecture thatLecture = thatCourse.getLecture(l);
-		if (thatLecture != null && thatGuy.isTaking(thatCourse) && thatGuy.withLecture(thatLecture))
-			return true;
-		else
-			return false;
+		TA t = taByName(ta);
+		Course course = courseByName(c);
+		if (course == null)
+		{
+			error("course does not exist");
+		}
+		Lecture lecture = course.getLecture(l);
+		if (lecture == null)
+		{
+			error("lecture does not exist");
+		}
+		return t.isTaking(lecture);
 	}
 
 	@Override

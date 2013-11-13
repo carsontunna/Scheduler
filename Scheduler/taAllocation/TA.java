@@ -9,9 +9,12 @@ public class TA extends Entity {
 	private Course prefer2;
 	private Course prefer3;
 	private List<Course> knows = new ArrayList<Course>();
+	
+	//NOTE: these are ONLY the assignments from the input file
 	private List<Lab> labs = new ArrayList<Lab>();
-	private List <Course> taking = new ArrayList<Course>();
-	private List<Lecture> atLecture = new ArrayList<Lecture>();
+	
+	private List<Lecture> taking = new ArrayList<Lecture>();
+	
 	public TA(Entity e) {
 		super(e);
 	}
@@ -69,17 +72,17 @@ public class TA extends Entity {
 		if (!labs.contains(lab))
 			labs.add(lab);
 	}
-	public boolean isTaking (Course course){
-		return taking.contains(course);
+	public boolean isTaking (Lecture lecture){
+		return taking.contains(lecture);
 	}
-	public boolean withLecture (Lecture L){
-		return atLecture.contains(L);
-	}
-	public void addTaking (Course course,Lecture lecture){
-		if(!taking.contains(course)){	
-			taking.add(course);
-			atLecture.add(lecture);
+	public void addTaking (Lecture lecture){
+		if(!taking.contains(lecture)){	
+			taking.add(lecture);
 		}
+	}
+	public List<Lecture> getTaking()
+	{
+		return this.taking;
 	}
 }
 	
