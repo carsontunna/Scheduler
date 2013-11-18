@@ -4,6 +4,8 @@ package taAllocation;
 import java.util.HashMap;
 import java.util.List;
 
+import taAllocation.Course;
+
 public class Instance {
 	
 	private Environment environment;
@@ -112,7 +114,58 @@ public class Instance {
 	
 	public int calcWert()
 	{
-		//TODO: calculate 'wert'
+		
+		int wert = 0;
+		int delta = 0;
+
+		// TAs should get their first choice
+		// course
+		for(TA ta: environment.getTAs()){
+			// Each TA should be funded (that is,
+			// they should teach at least one course)
+			
+			List<Lab> labs = ta.getLabs();
+			
+			if(labs == null)
+				wert -= 50;
+			
+		
+			delta = -25;
+			String pref1 = ta.getPrefer1().getName();
+			String pref2 = ta.getPrefer2().getName();
+			String pref3 = ta.getPrefer3().getName();
+			for(Lab lab : labs){
+				// TAs should get their first choice
+				// course
+				if(lab.getCourse().getName().equals(pref1)){
+					delta = 0;
+					break;
+				}
+				
+				// TAs should get their first or second
+				// choice course
+				if(lab.getCourse().getName().equals(pref2)){
+					delta = -5;
+					break;
+				}
+				
+				// TAs should get their first or second or
+				// third choice course
+				if(lab.getCourse().getName().equals(pref3)){
+					delta = -15;
+					break;
+				}
+			}
+			
+			wert += delta;
+			
+		
+			
+			
+			
+			
+		}
+		
 		return 1;
 	}
 }
