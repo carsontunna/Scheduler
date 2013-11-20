@@ -84,5 +84,8 @@ public class TA extends Entity {
 	{
 		return this.taking;
 	}
+	public int amountTaking(){
+		return taking.size();
+	}
 }
 	

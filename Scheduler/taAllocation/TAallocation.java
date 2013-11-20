@@ -28,7 +28,7 @@ public class TAallocation extends PredicateReader implements
 		String infile = "input.txt";
 		String outfile = "trace.out";
 		boolean consoleMode = false;
-		
+	
 		// READ FROM FILE
 		if (args.length > 0)
 		{

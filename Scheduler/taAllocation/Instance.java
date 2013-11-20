@@ -117,18 +117,40 @@ public class Instance {
 		
 		int wert = 0;
 		int delta = 0;
+		int former = -1;
+		int least = -1;
+		int current; 
+		Lab temp = null; 
+		Course hold = null; 
 
 		// TAs should get their first choice
 		// course
 		for(TA ta: environment.getTAs()){
 			// Each TA should be funded (that is,
 			// they should teach at least one course)
+			current = ta.amountTaking();
+		
+			if (former == -1)
+				former = ta.amountTaking();
+			if (least == -1)
+				least = ta.amountTaking();
+			if (current < least)
+				least = current;
+			// TA's should teach the same amount of Lab's
+			if (current != former)
+				wert -= 5;
+			// No TA should teach more than 1 more lab then the TA who teaches the least amount of Labs 
+			if ((current - least) >= 2)
+				wert -= 25;	
+				
 			
 			List<Lab> labs = ta.getLabs();
-			
+			List<Course> know = ta.getKnows();
 			if(labs == null)
 				wert -= 50;
-			
+			else
+				temp = labs.get(0);
+
 		
 			delta = -25;
 			String pref1 = ta.getPrefer1().getName();
@@ -154,18 +176,40 @@ public class Instance {
 				if(lab.getCourse().getName().equals(pref3)){
 					delta = -15;
 					break;
+					}
 				}
+			int counter = 0;
+			int distinct = 0;
+			for ( Lab lab : labs ){
+				hold = lab.getCourse();
+				
+				//TA Should know what they are teaching
+				if (!know.contains(lab.getCourse()))
+					wert -= 30;
+				// TA Should have all their labs in the same course
+			
+				if (temp.getCourse() != lab.getCourse()){
+					wert -= 20;
+					if (hold.isSeniorCourse())
+						distinct ++;
+					
+					counter ++;
+		
+				}
+				
+				if (distinct > 1)
+					wert -= 10; 
+				// TA's should not have their labs in more then 2 different courses
+				if (counter > 1)
+					wert -= 35;
+				temp = lab; 
 			}
 			
+			// Remaining to do Instructor Preferred  
 			wert += delta;
-			
-		
-			
-			
-			
-			
+			former = current;	
 		}
 		
-		return 1;
+		return wert;
 	}
 }
