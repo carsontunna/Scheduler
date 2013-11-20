@@ -9,7 +9,6 @@ public class Environment {
 
 	public static PredicateReader get() {
 		return new PredicateReader(p);
-
 	}
 
 	public Solution currentSolution;
@@ -24,13 +23,11 @@ public class Environment {
 
 	}
 
-	public int getMaxLabs()
-	{
+	public int getMaxLabs() {
 		return 0;
 	}
 
-	public List<TA> getTAs()
-	{
+	public List<TA> getTAs() {
 		return new ArrayList<TA>();
 	}
 
