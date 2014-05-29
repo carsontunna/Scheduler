@@ -1,9 +1,7 @@
 package taAllocation;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 public class Timeslot extends Entity {
 

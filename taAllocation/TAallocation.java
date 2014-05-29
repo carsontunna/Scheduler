@@ -59,9 +59,9 @@ public class TAallocation {
 		while (!program.isComplete())
 			Thread.yield();
 
-		String outstr = "";
-		outstr += env.toPredicatesString();
-		outstr += program.toPredicatesString();
+//		String outstr = "";
+//		outstr += env.toPredicatesString();
+//		outstr += program.toPredicatesString();
 
 		// killer threads dude
 		timer.cancel();

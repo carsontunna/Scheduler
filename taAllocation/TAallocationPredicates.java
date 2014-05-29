@@ -3,10 +3,6 @@
  */
 package taAllocation;
 
-import java.util.TreeSet;
-
-import taAllocation.Predicate.ParamType;
-
 /**
  * This interface should be <code>implement</code>ed by any class that reads TA allocation 
  * predicates.  The implementing class should also <code>extend</code> the

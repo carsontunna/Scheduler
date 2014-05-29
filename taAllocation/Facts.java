@@ -2,13 +2,11 @@ package taAllocation;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.ListIterator;
+//import com.sun.xml.internal.bind.v2.runtime.reflect.ListIterator;
 
 public class Facts {
 

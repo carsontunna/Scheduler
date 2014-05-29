@@ -1,7 +1,5 @@
 package taAllocation;
 
-import java.util.HashMap;
-
 public class Lecture extends Entity {
 
 	private Course course;

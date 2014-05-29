@@ -1,6 +1,5 @@
 package taAllocation;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -293,12 +292,12 @@ public class Constraints {
 		for (Instructor instructor : instructors.values()) {
 			s += ("instructor(" + instructor.getName() + ")");
 			s += "\n";
-			for (Lecture lecture : instructor.getLectures()) {
-				// moved to course print-out
-				// s += ("instructs(" + instructor.getName() + "," +
-				// lecture.getCourse().getName() + "," + lecture.getName() +
-				// ")");
-			}
+//			for (Lecture lecture : instructor.getLectures()) {
+//				// moved to course print-out
+//				// s += ("instructs(" + instructor.getName() + "," +
+//				// lecture.getCourse().getName() + "," + lecture.getName() +
+//				// ")");
+//			}
 		}
 		s += ("");
 		s += "\n";
